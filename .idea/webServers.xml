@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="52921fb6-3db1-4b19-9128-5b98e1b42d15" name="Baafi" url="http://localhost">
+        <fileTransfer port="0" mountedRoot="C:\baafi" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
