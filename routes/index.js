@@ -139,7 +139,22 @@ router.get('/suits',function(req,res,next){
 
         req.getConnection(function(err,conn){
             if (err){
-
+                console.error("SQL Connection Error",err);
+                return next (err);
+            }
+            else{
+                conn.query("",function(err,row,fields){
+                    if (err){
+                        console.error("SQL Error",err);
+                        return next (err);
+                    }
+                    let resEmp=[];
+                    for (let clothIndex in rows){
+                        let clothObj = rows[clothIndex];
+                        resEmp.push(clothObj);
+                    }
+                    res.render(resEmp);
+                });
             }
         });
     }
@@ -152,7 +167,20 @@ router.get('/suits',function(req,res,next){
 //get bridal information
 router.get('/bridal',function(req,res,next){
    try{
+       let query = url.parse(req.url,true).query;
+       console.log(query);
 
+       req.getConnection(function(err,conn){
+           if (err){
+               console.error("SQL Connection Error",err);
+               return next (err);
+           }
+           else{
+               conn.query("",function(err,rows,fields){
+
+               });
+           }
+       });
    }
    catch(ex){
        console.error("Internal error"+ex);
