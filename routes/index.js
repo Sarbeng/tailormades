@@ -153,7 +153,7 @@ router.get('/suits',function(req,res,next){
                         let clothObj = rows[clothIndex];
                         resEmp.push(clothObj);
                     }
-                    res.render(resEmp);
+                    res.json(resEmp);
                 });
             }
         });
@@ -177,7 +177,16 @@ router.get('/bridal',function(req,res,next){
            }
            else{
                conn.query("",function(err,rows,fields){
-
+                   if (err){
+                       console.error("SQL Error",err);
+                       return next (err);
+                   }
+                   let resEmp=[];
+                   for(let clothIndex in rows){
+                       let clothObj = rows[clothIndex];
+                       resEmp.push(clothObj);
+                   }
+                   res.json(resEmp);
                });
            }
        });
@@ -191,7 +200,29 @@ router.get('/bridal',function(req,res,next){
 //get information from kids
 router.get('/kids',function(req,res,next){
    try{
+       let query= url.parse(req.url,true).query;
+       console.log(query);
 
+       req.getConnection(function(err,conn){
+          if (err) {
+              console.error("SQL Connection Error");
+              return next (err);
+          }
+          else{
+              conn.query("",function(err,rows,fields){
+                 if (err) {
+                     console.error("SQL Conection Error",err);
+                     return next (err);
+                 }
+                 let resEmp = [];
+                 for(let clothIndex in rows){
+                     let clothObj = rows[clothIndex];
+                     resEmp.push(clothObj);
+                 }
+                 res.json(resEmp);
+              });
+          }
+       });
    }
    catch(ex){
        console.error("Internal Error"+ex);
@@ -202,7 +233,29 @@ router.get('/kids',function(req,res,next){
 //get dashiki information
 router.get('/dashiki',function(req,res,next){
     try{
+        let query = url.parse(req.url,true).query;
+        console.log(query);
 
+        req.getConnection(function(err,conn){
+            if (err) {
+                console.error("SQL Connection Error",err);
+                return next (err);
+            }
+            else{
+                conn.query("",function(err,rows,fields){
+                    if (err){
+                        console.error("SQL Error",err);
+                        return next (err);
+                    }
+                    let resEmp =[];
+                    for(let clothIndex in rows){
+                        let clothObj = rows[clothIndex];
+                        resEmp.push(clothObj);
+                    }
+                    res.json(resEmp);
+                });
+            }
+        });
     }
     catch(ex){
         console.error("internal error"+ex);
@@ -213,7 +266,29 @@ router.get('/dashiki',function(req,res,next){
 //get bags information
 router.get('/bags',function(req,res,next){
     try{
+        let query = url.parse(req.url,true).query;
+        console.log(query);
 
+        req.getConnection(function(err,conn){
+            if (err) {
+                console.error("SQL Connection Error",err);
+                return next(err);
+            }
+            else{
+                conn.query("",function(err,rows,fields){
+                   if (err){
+                       console.log("SQL Error");
+                       return next(err);
+                   }
+                   let resEmp= [];
+                   for (let clothIndex in rows){
+                       let clothObj = rows(clothIndex);
+                       resEmp.push(clothObj);
+                   }
+                   res.json(resEmp);
+                });
+            }
+        });
     }
     catch(ex){
         console.log("Internal error"+ex);
@@ -224,7 +299,29 @@ router.get('/bags',function(req,res,next){
 //get embroidery information
 router.get('/embroidery',function(req,res,next){
     try{
+        let query = url.parse(req.url,true).query;
+        console.log(query);
 
+        req.getConnection(function(err,conn){
+            if (err){
+                console.error("SQL Connection Error",err);
+                return next (err);
+            }
+            else{
+                conn.query("",function(err,rows,fields){
+                    if (err) {
+                        console.error("SQL Error",err);
+                        return next (err);
+                    }
+                    let resEmp = [];
+                    for(let clothIndex in rows){
+                        let clothObj = rows[clothIndex];
+                        resEmp.push(clothObj);
+                    }
+                    res.json(resEmp);
+                });
+            }
+        });
     }
     catch(ex){
         console.error("Internal error"+ex);
