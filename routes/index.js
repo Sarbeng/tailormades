@@ -9,43 +9,7 @@ router.get('/',function(req,res,next){
 
 module.exports = router;
 
-//getting all clothes
 router.get('/clothes',function(req,res,next){
-    try{
-        //assigning the request to a query string
-        let query = url.parse(req.url,true).query;
-        console.log(query);
-
-        //connecting to the database and getting the information
-        req.getConnection(function(err,conn){
-            //checking for an error
-            if (err) {
-                console.error("SQL Connection Error:",err);
-                return next (err);
-            }else {
-                conn.query("",function(err,rows,fields){
-                    if (err) {
-                        console.error("SQL error",err);
-                        return next(err);
-                    }
-                    let resEmp = [];
-                    for (let clothIndex in rows){
-                        let clothObj = rows[clothIndex];
-                        resEmp.push(clothObj);
-                    }
-                    res.json(resEmp);
-                });
-            }
-        });
-    }
-    catch(ex){
-        console.error("Internal Error"+ex);
-        return next (ex);
-    }
-});
-
-//getting african wear
-router.get('africanwear',function(req,res,next){
     try{
         let query = url.parse(req.url,true).query;
         console.log(query);
@@ -56,7 +20,40 @@ router.get('africanwear',function(req,res,next){
                 return next (err);
             }
             else {
-                conn.query("",function(err,rows,fields){
+                conn.query("SELECT *FROM clothing ",function(err,rows,fields){
+                    if (err) {
+                        console.error("SQL error",err);
+                        return next (err);
+                    }
+                    let resEmp = [];
+                    for (let clothIndex in rows){
+                        let clothObj = rows[clothIndex];
+                        resEmp.push(clothObj);
+                    }
+                    res.json(resEmp);
+                });
+            }
+        })
+    }
+    catch(ex){
+        console.error("Internal error"+ex);
+        return next (ex);
+    }
+});
+
+//getting african wear
+router.get('/africanwear',function(req,res,next){
+    try{
+        let query = url.parse(req.url,true).query;
+        console.log(query);
+
+        req.getConnection(function(err,conn){
+            if (err){
+                console.error("SQL Connection Error:",err);
+                return next (err);
+            }
+            else {
+                conn.query("SELECT *FROM clothing WHERE category = 'african wear' ",function(err,rows,fields){
                     if (err) {
                         console.error("SQL error",err);
                         return next (err);
@@ -78,7 +75,7 @@ router.get('africanwear',function(req,res,next){
 });
 
 //get blouse informaton
-router.get('blouses',function(req,res,next){
+router.get('/blouses',function(req,res,next){
     try{
         req.getConnection(function(err,conn){
             if (err) {

@@ -7,17 +7,19 @@ let bodyParser = require('body-parser');
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let mysql = require ('mysql');
-let conn =  require ('express-myconnection');
+//let conn =  require ('express-myconnection'); //mistake made here...take note
+
 
 let app = express();
-
-//connecting to mysql database// not yet createdc thoug byut it will soon
-app.use(conn(mysql,{
-  host: '127.0.0.1',
-    user: 'root',
+// myConnection = require('express-myconnection'), // express-myconnection module
+ conn = require('express-myconnection');
+db={
+  host:'localhost',
+    user:'root',
     password:'',
-    database: 'tailormade'
-},'requests'));
+    database:'tailorsmade'
+};
+app.use(conn(mysql,db,'single'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,7 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
